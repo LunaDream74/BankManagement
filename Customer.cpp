@@ -26,10 +26,13 @@ void Customer::generalInquiry(){
     for (auto &a1 : accounts){
         cout << "Customer's account id: " << a1.id << endl;
         cout << "Balance: " << a1.money << endl;
-    }
-    for (auto &l1 : loans){
-        cout << "Customer's loan id: " << l1.id << endl;
-        cout << "Debt: " << l1.money << endl;
+        for (auto &l1 : loans){
+            if (l1.accountId == a1.id){
+                cout << "Customer's loan id: " << l1.id << endl;
+                cout << "Loan type: " << l1.type << endl;
+                cout << "Debt: " << l1.money << endl;
+            }
+        }
     }
 }
 
