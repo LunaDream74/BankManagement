@@ -3,13 +3,19 @@
 
 
 class Account {
+    protected:
+        int id, customerId, money;
     public:
         static int countId;
-        int id, customerId, money;
         //constructor
         Account();
         
         Account(int, int);
+
+        int getAccountId();
+        int getMoney();
+        void retrieveMoney(int money);
+        void addMoney(int money);
 };
 
 #endif

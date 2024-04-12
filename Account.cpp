@@ -15,3 +15,19 @@ Account::Account(int newCustomerId, int moneyAdded){
     customerId = newCustomerId;
     money = moneyAdded;
 }
+
+int Account::getAccountId(){
+    return id;
+}
+
+int Account::getMoney(){
+    return money;
+}
+
+void Account::retrieveMoney(int moneyRetrieve){
+    money -= moneyRetrieve;
+}
+
+void Account::addMoney(int moneyAdd){
+    money += moneyAdd;
+}

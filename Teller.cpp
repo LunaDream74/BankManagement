@@ -20,82 +20,119 @@ Teller::Teller(string newName){
 void Teller::addCustomerToTeller(Customer customer){
     //add customer to customer list
     customers.push_back(customer);
-    cout << "Successfully added customer: " << customer.name << " under teller: " << name << endl;
+    cout << "Successfully added customer: " << customer.getName() << " under teller: " << name << endl;
 }
 
 void Teller::collectMoney(int customerId , int accountId, int moneyCollected){
-    int customerPosition = findCustomer(customerId);
-    int accountPosition = findAccount(customerId,accountId);
-    Customer *currentCustomer = &customers[customerPosition];
+    //get indexes
+    int customerIndex = findCustomer(customerId);
+    int accountIndex = findAccount(customerId,accountId);
+
+    Customer *currentCustomer = &customers[customerIndex];
+
     //add money collected to customer's account
-    (*currentCustomer).accounts[accountPosition].money += moneyCollected;
+    (*currentCustomer).accounts[accountIndex].addMoney(moneyCollected);
 }
 
 bool Teller::openAccount(int customerId, int moneyAdded){
-    int customerPosition = findCustomer(customerId);
-    Customer *currentCustomer = &customers[customerPosition];
+    //get customer index
+    int customerIndex = findCustomer(customerId);
+
+    Customer *currentCustomer = &customers[customerIndex];
+
     //create new account and add to list
     (*currentCustomer).accounts.push_back(Account(customerId, moneyAdded));
-    cout << "Successfully added an account under customer: " << (*currentCustomer).name << endl;
+
+    cout << "Successfully added an account under customer: " << (*currentCustomer).getName() << endl;
     cout << "Your new account's ID: " << (*currentCustomer).accounts.size()<< endl;
     return true;
 }
 
 int Teller::closeAccount(int customerId, int accountId){
-    int customerPosition = findCustomer(customerId);
-    int accountPosition = findAccount(customerId, accountId);
-    customers[customerPosition].accounts.erase(customers[customerPosition].accounts.begin() + accountPosition);
+    //get indexes
+    int customerIndex = findCustomer(customerId);
+    int accountIndex = findAccount(customerId, accountId);
+
+    //delete account
+    customers[customerIndex].accounts.erase(customers[customerIndex].accounts.begin() + accountIndex);
     return 0;
 }
 
 bool Teller::loanRequest(int customerId, int accountId, int moneyLoaning, string type){
-    int customerPosition = findCustomer(customerId);
-    int accountPosition = findAccount(customerId,accountId);
+    //get indexes
+    int customerIndex = findCustomer(customerId);
+    int accountIndex = findAccount(customerId,accountId);
+    
+    Customer *currentCustomer = &customers[customerIndex];
+
     //check if customer wanted to loan
-    Customer *currentCustomer = &customers[customerPosition];
     if((*currentCustomer).applyForLoan(type,accountId)){
         //create loan
         Loan tempLoan = Loan(type, accountId, customerId, moneyLoaning);
+
         //add loan to list
         (*currentCustomer).loans.push_back(tempLoan);
+
         cout << "You've successfully opened a loan.\n";
         return true;
     }
-    else
+    else{
         //wrong type
         cout << "Please type 'Trust' or 'Mortgage'.\n";
         return false;
+    }
 }
 
-//get info from customer
 void Teller::provideInfo(int customerId){
-    int customerPosition = findCustomer(customerId);
+    //get customer index
+    int customerIndex = findCustomer(customerId);
+
     //get information from customer
-    Customer *current = &customers[customerPosition];
+    Customer *current = &customers[customerIndex];
     (*current).generalInquiry();
 }
 
 //find index of account
 int Teller::findAccount(int customerId, int accountId){
-    int accountPosition = 0;
-    int customerPosition = findCustomer(customerId);
-    int n = customers[customerPosition].accounts.size();
-    while (accountPosition < n){
-        if (customers[customerPosition].accounts[accountPosition].id == accountId)
-            return accountPosition;
-        accountPosition++;
+    int accountIndex = 0;
+
+    //get customer index
+    int customerIndex = findCustomer(customerId);
+
+    //get size of account list
+    int n = customers[customerIndex].accounts.size();
+
+    while (accountIndex < n){
+        if (customers[customerIndex].accounts[accountIndex].getAccountId() == accountId)
+            return accountIndex;
+        accountIndex++;
     }
-    return accountPosition - 1;
+    return accountIndex - 1;
 }
 
 //find index of customer
 int Teller::findCustomer(int customerId){
-    int customerPosition = 0;
+    int customerIndex = 0;
+
+    //get size of customer list
     int n = customers.size();
-    while (customerPosition < n){
-        if (customers[customerPosition].id == customerId)
-            return customerPosition;
-        customerPosition++;
+
+    while (customerIndex < n){
+        if (customers[customerIndex].getId() == customerId)
+            return customerIndex;
+        customerIndex++;
     }
-    return customerPosition - 1;
+    return customerIndex - 1;
 }
+
+int Teller::getTellerId(){
+    return id;
+}
+
+string Teller::getTellerName(){
+    return name;
+}
+
+// vector<Customer> Teller::getCustomer(){
+//     return customers;
+// }

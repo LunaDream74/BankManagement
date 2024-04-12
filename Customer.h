@@ -8,12 +8,13 @@
 using namespace std;
 
 class Customer{
-    public:
-        static int countId;
+    private:
         int id, phoneNo;
         string name, address;
+    public:
         vector<Account> accounts;
         vector<Loan> loans;
+        static int countId;
 
         Customer();
 
@@ -30,6 +31,10 @@ class Customer{
         bool closeAccount(int accountId);
 
         bool applyForLoan(string type, int accountId);
+
+        int getId();
+
+        string getName();
 };
 
 #endif

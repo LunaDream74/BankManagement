@@ -4,14 +4,19 @@
 #include <string>
 using namespace std;
 class Loan {
-    public:
-        static int countId;
+    protected:
         int id, accountId, customerId, money;
         string type;
+    public:
+        static int countId;
 
         Loan();
 
         Loan(string, int, int, int);
+        int getLoanId();
+        int getMoney();
+        int getAccountId();
+        string getLoanType();
 };
 
 #endif

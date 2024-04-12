@@ -1,5 +1,3 @@
-//Run program
-//    g++ -o main mainBankFunc.cpp Customer.cpp Loan.cpp Teller.cpp Bank.cpp Account.cpp
 #include <iostream>
 #include "Customer.h"
 #include "Bank.h"
