@@ -12,6 +12,8 @@ Customer::Customer(){
     phoneNo = 0;
 }
 
+Customer::~Customer(){}
+
 Customer::Customer(string newName, string newAddress, int newPhoneNo){
     id = countId++;
     name = newName;

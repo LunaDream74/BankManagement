@@ -9,8 +9,10 @@ class Loan {
         string type;
     public:
         static int countId;
-
+        //constructor
         Loan();
+        //destructor
+        ~Loan();
 
         Loan(string, int, int, int);
         int getLoanId();

@@ -12,6 +12,8 @@ Loan::Loan(){
     money = 0;
 }
 
+Loan::~Loan(){}
+
 Loan::Loan(string newType, int AccountId, int CustomerId, int moneyLoaning){
     id = countId++;
     type = newType;

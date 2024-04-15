@@ -12,6 +12,8 @@ Bank::Bank(){
     location = "Earth";
 }
 
+Bank::~Bank(){}
+
 Bank::Bank(string newName, string newLocation){
     bankId = countbankId;
     countbankId++;
@@ -62,12 +64,11 @@ void Bank::bankGUI(){
         }
         //give information to customer
         case 1: {
-            customerId = inputCustomerId();
             tellerId = inputTellerId();
-
+            validTeller(tellerId);
             tellerIndex = Bank::findTeller(tellerId);
 
-            validTeller(tellerId);
+            customerId = inputCustomerId();
             validCustomer(customerId,tellerIndex);
 
             system("cls");
@@ -82,13 +83,14 @@ void Bank::bankGUI(){
             cin >> moneyDepositing;
             validMoney(moneyDepositing);
 
-            customerId = inputCustomerId();
+            
             tellerId = inputTellerId();
             validTeller(tellerId);
-
             tellerIndex = Bank::findTeller(tellerId);
-            customerIndex = tellers[tellerIndex].findCustomer(customerId);
+
+            customerId = inputCustomerId();
             validCustomer(customerId,tellerIndex);
+            customerIndex = tellers[tellerIndex].findCustomer(customerId);
 
             cout << "Please enter your account ID you would like to deposit to: \n";
             cin >> accountId;
@@ -108,13 +110,14 @@ void Bank::bankGUI(){
             cin >> moneyWithdrawing;
             validMoney(moneyWithdrawing);
 
-            customerId = inputCustomerId();
+            
             tellerId = inputTellerId();
             validTeller(tellerId);
-
             tellerIndex = Bank::findTeller(tellerId);
-            customerIndex = tellers[tellerIndex].findCustomer(customerId);
+
+            customerId = inputCustomerId();
             validCustomer(customerId,tellerIndex);
+            customerIndex = tellers[tellerIndex].findCustomer(customerId);
 
             cout << "Please enter your account ID you would like to withdraw from: ";
             cin >> accountId;
@@ -132,15 +135,14 @@ void Bank::bankGUI(){
             int moneyAdd;
             cin >> moneyAdd;
             validMoney(moneyAdd);
-
-            customerId = inputCustomerId();
-            tellerId = inputTellerId();
-
-            validTeller(tellerId);
             
+            tellerId = inputTellerId();
+            validTeller(tellerId);
             tellerIndex = Bank::findTeller(tellerId);
-            customerIndex = tellers[tellerIndex].findCustomer(customerId);
+            
+            customerId = inputCustomerId();
             validCustomer(customerId,tellerIndex);
+            customerIndex = tellers[tellerIndex].findCustomer(customerId);
 
             system("cls");
 
@@ -151,15 +153,13 @@ void Bank::bankGUI(){
         }
         //closing account
         case 5: {
-            customerId = inputCustomerId();
             tellerId = inputTellerId();
-
             validTeller(tellerId);
-
             tellerIndex = Bank::findTeller(tellerId);
-            customerIndex = tellers[tellerIndex].findCustomer(customerId);
 
+            customerId = inputCustomerId();
             validCustomer(customerId,tellerIndex);
+            customerIndex = tellers[tellerIndex].findCustomer(customerId);
 
             cout << "Please enter your account ID you would like to close: ";
             cin >> accountId;
@@ -173,16 +173,15 @@ void Bank::bankGUI(){
             break;
         }
         //apply for loan
-        case 6:{
-            customerId = inputCustomerId();
+        case 6: {
             tellerId = inputTellerId();
-
             validTeller(tellerId);
-
             tellerIndex = Bank::findTeller(tellerId);
-            customerIndex = tellers[tellerIndex].findCustomer(customerId);
 
+            
+            customerId = inputCustomerId();
             validCustomer(customerId,tellerIndex);
+            customerIndex = tellers[tellerIndex].findCustomer(customerId);
 
             cout << "Please enter your account ID you would like to get a loan: ";
             cin >> accountId;
@@ -235,7 +234,7 @@ void Bank::validMoney(int money){
 
 //check if teller's id is valid
 void Bank::validTeller(int tellerId){
-    if (tellerId > tellers.size()){
+    if (tellerId > tellers.size() || tellerId <= 0){
         cout << "Invalid teller id!!!\n";
         Bank::bankGUI();
     }
@@ -243,7 +242,7 @@ void Bank::validTeller(int tellerId){
 
 //check if customer's id is valid
 void Bank::validCustomer(int customerId, int tellerIndex){
-    if (customerId > tellers[tellerIndex].customers.size()){
+    if (customerId > tellers[tellerIndex].customers.size() || customerId <= 0){
         cout<<"Invalid customer id!!!"<<'\n';
         Bank::bankGUI();
     }
@@ -251,7 +250,7 @@ void Bank::validCustomer(int customerId, int tellerIndex){
 
 //check if account's id is valid
 void Bank::validAccount(int accountId, int tellerIndex, int customerIndex){
-    if (accountId > tellers[tellerIndex].customers[customerIndex].accounts.size()){
+    if (accountId > tellers[tellerIndex].customers[customerIndex].accounts.size() || accountId <= 0){
         cout<<"Invalid account id!!!"<<'\n';
         Bank::bankGUI();
     }

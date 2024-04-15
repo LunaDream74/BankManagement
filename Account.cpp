@@ -10,6 +10,8 @@ Account::Account(){
     money = 0;
 }
 
+Account::~Account(){}
+
 Account::Account(int newCustomerId, int moneyAdded){
     id = countId++;
     customerId = newCustomerId;

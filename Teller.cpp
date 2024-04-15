@@ -12,6 +12,8 @@ Teller::Teller(){
     name = "No name";
 }
 
+Teller::~Teller(){}
+
 Teller::Teller(string newName){
     id = countId++;
     name = newName;
@@ -132,7 +134,3 @@ int Teller::getTellerId(){
 string Teller::getTellerName(){
     return name;
 }
-
-// vector<Customer> Teller::getCustomer(){
-//     return customers;
-// }

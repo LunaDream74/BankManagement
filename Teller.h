@@ -13,8 +13,10 @@ class Teller {
     public:
         vector<Customer> customers;
         static int countId;
-
+        //constructor
         Teller();
+        //destuctor
+        ~Teller();
 
         Teller(string);
 

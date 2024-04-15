@@ -16,8 +16,11 @@ class Customer{
         vector<Loan> loans;
         static int countId;
 
+        //constructor
         Customer();
-
+        //destructor
+        ~Customer();
+        
         Customer(string, string, int);
 
         void generalInquiry();

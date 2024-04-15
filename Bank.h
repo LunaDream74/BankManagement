@@ -13,7 +13,10 @@ class Bank {
         string name, location;
     public:
         vector<Teller> tellers;
+        //constructor
         Bank();
+        //distructor
+        ~Bank();
 
         Bank(string, string);
 

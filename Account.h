@@ -9,11 +9,14 @@ class Account {
         static int countId;
         //constructor
         Account();
+        //destructor
+        ~Account();
         
         Account(int, int);
 
         int getAccountId();
         int getMoney();
+        
         void retrieveMoney(int money);
         void addMoney(int money);
 };
